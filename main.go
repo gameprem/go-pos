@@ -12,7 +12,9 @@ package main
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @securityDefinitions.apikey  BearerAuth
+// @securityDefinitions.apikey bearerAuth
+// @in header
+// @name Authorization
 
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/

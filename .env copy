@@ -1,0 +1,1 @@
+DATABASE_DSN=host="localhost user=root password=password dbname=mydb port=5432 sslmode=disable"
