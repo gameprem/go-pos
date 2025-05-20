@@ -1,11 +1,21 @@
 package main
 
-// @title Simple API
-// @version 1.0
-// @description Example API
-// @securityDefinitions.apikey bearerAuth
-// @in header
-// @name Authorization
+// @title           Swagger Example API
+// @version         1.0
+// @description     This is a sample server celler server.
+// @termsOfService  http://swagger.io/terms/
+
+// @contact.name   API Support
+// @contact.url    http://www.swagger.io/support
+// @contact.email  support@swagger.io
+
+// @license.name  Apache 2.0
+// @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @securityDefinitions.apikey  BearerAuth
+
+// @externalDocs.description  OpenAPI
+// @externalDocs.url          https://swagger.io/resources/open-api/
 
 import (
 	"fmt"
@@ -38,7 +48,8 @@ func main() {
 		return c.Type("html").SendString(htmlContent)
 	})
 
-	fmt.Printf("Starting web server on port :3030")
+	fmt.Println("Starting web server on port :3030")
+	fmt.Println("Docs : http://localhost:3030/docs")
 
 	log.Fatal(app.Listen(":3030"))
 }
