@@ -1,10 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "Example API",
+        "title": "Simple API",
+        "contact": {},
+        "version": "1.0"
     },
     "paths": {
-        "/login": {
+        "/api/v1/auth/login": {
             "post": {
                 "description": "Login and get JWT token",
                 "consumes": [
@@ -24,7 +27,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/model.LoginRequest"
                         }
                     }
                 ],
@@ -53,7 +56,7 @@
                 }
             }
         },
-        "/register": {
+        "/api/v1/auth/register": {
             "post": {
                 "description": "Register a new user",
                 "consumes": [
@@ -73,7 +76,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/model.RegisterRequest"
                         }
                     }
                 ],
@@ -94,14 +97,61 @@
                     }
                 }
             }
+        },
+        "/api/v1/profile/me": {
+            "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "description": "Get profile of the authenticated user",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "profile"
+                ],
+                "summary": "Get current user profile",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "model.User": {
+        "model.LoginRequest": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer"
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RegisterRequest": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
                 },
                 "password": {
                     "type": "string"
@@ -110,6 +160,13 @@
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "bearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

@@ -22,4 +22,5 @@ func Init() {
 		log.Fatal("Failed to connect to database!", err)
 	}
 	DB.AutoMigrate(&model.User{})
+	DB.AutoMigrate(&model.UserInfo{})
 }

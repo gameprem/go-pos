@@ -1,13 +1,19 @@
 package main
 
+// @title Simple API
+// @version 1.0
+// @description Example API
+// @securityDefinitions.apikey bearerAuth
+// @in header
+// @name Authorization
+
 import (
 	"fmt"
 	"github.com/MarceloPetrucio/go-scalar-api-reference"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"go-pos/internal/database"
-	"go-pos/internal/handler"
-	"go-pos/internal/middleware"
+	"go-pos/internal/router"
 	"log"
 )
 
@@ -16,13 +22,7 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 
-	app.Post("/register", handler.Register)
-	app.Post("/login", handler.Login)
-
-	app.Get("/protected", middleware.JWTMiddleware, func(c *fiber.Ctx) error {
-		claims := c.Locals("user")
-		return c.JSON(fiber.Map{"message": "You are authenticated!", "claims": claims})
-	})
+	router.Setup(app)
 
 	app.Get("/docs", func(c *fiber.Ctx) error {
 		htmlContent, err := scalar.ApiReferenceHTML(&scalar.Options{
