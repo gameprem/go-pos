@@ -18,6 +18,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  app:
+    build: .
+    ports:
+      - "3030:3030"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=mydb
+    depends_on:
+      - db
 
 volumes:
   pgdata:
